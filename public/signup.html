@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkUP - Sign Up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#14A800',
+                        secondary: '#6B7280',
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .btn-primary {
+                @apply bg-primary text-white font-semibold px-6 py-3 rounded-full hover:bg-green-700 transition duration-300 ease-in-out shadow-md;
+            }
+            .btn-secondary {
+                @apply bg-white text-dark font-semibold px-6 py-3 rounded-full border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition duration-300 ease-in-out;
+            }
+            .form-input {
+                @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent;
+            }
+            .role-option {
+                @apply border-2 border-gray-300 rounded-lg px-4 py-3 flex items-center cursor-pointer transition-all duration-300;
+            }
+            .role-option.selected {
+                @apply border-primary bg-green-50;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 min-h-screen bg-gray-50">
+    <!-- Simple Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex-shrink-0 flex items-center">
+                        <span class="text-primary font-bold text-2xl">LinkUP</span>
+                    </a>
+                </div>
+                <div class="flex items-center">
+                    <a href="/login" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Signup Form -->
+    <div class="max-w-md mx-auto mt-12 mb-12 px-4 sm:px-6">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden p-8">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">Create Your Account</h2>
+                <p class="mt-2 text-gray-600">Join LinkUP and connect with the right sponsors</p>
+            </div>
+
+            <form id="signupForm" class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                    <input id="name" name="name" type="text" required class="form-input" placeholder="John Doe">
+                    <div id="nameError" class="text-red-500 text-sm mt-1 hidden"></div>
+                </div>
+                
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    <input id="email" name="email" type="email" required class="form-input" placeholder="you@example.com">
+                    <div id="emailError" class="text-red-500 text-sm mt-1 hidden"></div>
+                </div>
+                
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input id="password" name="password" type="password" required class="form-input" placeholder="At least 6 characters">
+                    <div id="passwordError" class="text-red-500 text-sm mt-1 hidden"></div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-3">I am a:</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div id="role-organizer" class="role-option selected" onclick="selectRole('organizer')">
+                            <input type="radio" name="role" value="organizer" class="h-4 w-4 text-primary" checked hidden>
+                            <div class="ml-2">
+                                <div class="font-medium">Event Organizer</div>
+                                <div class="text-xs text-gray-500">I'm looking for sponsors</div>
+                            </div>
+                        </div>
+                        <div id="role-sponsor" class="role-option" onclick="selectRole('sponsor')">
+                            <input type="radio" name="role" value="sponsor" class="h-4 w-4 text-primary" hidden>
+                            <div class="ml-2">
+                                <div class="font-medium">Sponsor</div>
+                                <div class="text-xs text-gray-500">I want to sponsor events</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center">
+                    <input id="terms" name="terms" type="checkbox" required class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
+                    <label for="terms" class="ml-2 block text-sm text-gray-700">
+                        I agree to the <a href="#" class="text-primary hover:text-green-700">Terms of Service</a> and <a href="#" class="text-primary hover:text-green-700">Privacy Policy</a>
+                    </label>
+                </div>
+                
+                <div>
+                    <button type="submit" class="w-full btn-primary">Create Account</button>
+                </div>
+                
+                <div id="signupError" class="text-center text-red-500 text-sm hidden"></div>
+            </form>
+            
+            <div class="mt-8 text-center">
+                <p class="text-gray-600">Already have an account? <a href="/login" class="font-medium text-primary hover:text-green-700">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectRole(role) {
+            // Remove selected class from both
+            document.getElementById('role-organizer').classList.remove('selected');
+            document.getElementById('role-sponsor').classList.remove('selected');
+            
+            // Add selected class to chosen role
+            document.getElementById('role-' + role).classList.add('selected');
+            
+            // Update radio button
+            document.querySelector('input[value="' + role + '"]').checked = true;
+        }
+        
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Reset error messages
+            document.getElementById('nameError').classList.add('hidden');
+            document.getElementById('emailError').classList.add('hidden');
+            document.getElementById('passwordError').classList.add('hidden');
+            document.getElementById('signupError').classList.add('hidden');
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const role = document.querySelector('input[name="role"]:checked').value;
+            
+            // Validate
+            let hasError = false;
+            
+            if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters';
+                document.getElementById('passwordError').classList.remove('hidden');
+                hasError = true;
+            }
+            
+            if (!document.getElementById('terms').checked) {
+                document.getElementById('signupError').textContent = 'You must agree to the Terms of Service and Privacy Policy';
+                document.getElementById('signupError').classList.remove('hidden');
+                hasError = true;
+            }
+            
+            if (hasError) return;
+            
+            try {
+                const response = await fetch('/api/auth/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, password, role })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    if (data.error.includes('email')) {
+                        document.getElementById('emailError').textContent = data.error;
+                        document.getElementById('emailError').classList.remove('hidden');
+                    } else {
+                        document.getElementById('signupError').textContent = data.error || 'Signup failed. Please try again.';
+                        document.getElementById('signupError').classList.remove('hidden');
+                    }
+                    return;
+                }
+                
+                // Store token in localStorage
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                
+                // Redirect to dashboard
+                window.location.href = `/dashboard`;
+            } catch (error) {
+                document.getElementById('signupError').textContent = 'An error occurred. Please try again.';
+                document.getElementById('signupError').classList.remove('hidden');
+                console.error('Signup error:', error);
+            }
+        });
+    </script>
+</body>
+</html> 

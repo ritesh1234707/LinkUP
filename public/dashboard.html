@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkUP - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#14A800',
+                        secondary: '#6B7280',
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .btn-primary {
+                @apply bg-primary text-white font-semibold px-6 py-3 rounded-full hover:bg-green-700 transition duration-300 ease-in-out shadow-md;
+            }
+            .btn-secondary {
+                @apply bg-white text-dark font-semibold px-6 py-3 rounded-full border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition duration-300 ease-in-out;
+            }
+            .card {
+                @apply bg-white rounded-xl shadow-md p-6 transition duration-300 hover:shadow-lg;
+            }
+            .tooltip {
+                @apply absolute invisible bg-gray-800 text-white text-xs rounded py-1 px-2 -mt-10;
+            }
+            .has-tooltip:hover .tooltip {
+                @apply visible z-50;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 min-h-screen bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex-shrink-0 flex items-center">
+                        <span class="text-primary font-bold text-2xl">LinkUP</span>
+                    </a>
+                    
+                    <!-- Nav Links - Shown based on user role -->
+                    <div class="hidden md:ml-6 md:flex md:space-x-4" id="nav-links">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Help Button -->
+                <div class="flex items-center mr-4">
+                    <a href="/documentation" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium flex items-center" id="help-button" data-tippy-content="View comprehensive documentation">
+                        <i class="fas fa-question-circle mr-1"></i> Help
+                    </a>
+                </div>
+                
+                <!-- User Profile Dropdown -->
+                <div class="flex items-center">
+                    <div class="relative ml-3" id="profile-menu">
+                        <div>
+                            <button type="button" class="flex items-center max-w-xs text-sm rounded-full focus:outline-none" id="user-menu-button" aria-expanded="false" aria-haspopup="true" data-tippy-content="Click to see profile options">
+                                <span class="mr-2 font-medium text-gray-700" id="user-name">Loading...</span>
+                                <div class="h-8 w-8 rounded-full bg-primary text-white flex items-center justify-center" id="user-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </button>
+                        </div>
+                        
+                        <!-- Dropdown Menu (Hidden by default) -->
+                        <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden" id="user-dropdown">
+                            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" id="profile-link">Your Profile</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" id="settings-link">Settings</a>
+                                <div class="border-t border-gray-100"></div>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" id="logout-button">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Authentication Check - This section will be replaced by the dashboard content if authenticated -->
+    <div id="auth-check" class="flex justify-center items-center h-96">
+        <div class="text-center">
+            <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-yellow-100 text-yellow-600 mb-6">
+                <i class="fas fa-spinner fa-spin text-xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">Checking authentication...</h2>
+            <p class="mt-2 text-gray-600">Please wait while we verify your credentials.</p>
+        </div>
+    </div>
+
+    <!-- Dashboard Content - Hidden until authentication is verified -->
+    <main id="dashboard-content" class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 hidden">
+        <!-- Welcome Banner -->
+        <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900" id="welcome-message">Welcome!</h1>
+                    <p class="mt-1 text-gray-600" id="user-role-message">Loading your dashboard...</p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <button class="btn-primary" id="main-action-button" data-tippy-content="Get started with the main action for your role">Get Started</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dashboard Grid - Different for each role -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- First will be populated by JavaScript based on user role -->
+        </div>
+    </main>
+
+    <!-- Unauthenticated Content - Shown if not logged in -->
+    <div id="unauthenticated-content" class="max-w-md mx-auto mt-16 px-4 sm:px-6 hidden">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden p-8 text-center">
+            <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-red-100 text-red-600 mb-6">
+                <i class="fas fa-lock text-xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">Authentication Required</h2>
+            <p class="mt-2 text-gray-600">You need to sign in to access the dashboard.</p>
+            <div class="mt-8 flex flex-col space-y-4">
+                <a href="/login" class="btn-primary text-center">Sign In</a>
+                <a href="/signup" class="btn-secondary text-center">Create an Account</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const authCheck = document.getElementById('auth-check');
+        const dashboardContent = document.getElementById('dashboard-content');
+        const unauthenticatedContent = document.getElementById('unauthenticated-content');
+        const userNameElement = document.getElementById('user-name');
+        const userDropdown = document.getElementById('user-dropdown');
+        const userMenuButton = document.getElementById('user-menu-button');
+        const logoutButton = document.getElementById('logout-button');
+        const welcomeMessage = document.getElementById('welcome-message');
+        const userRoleMessage = document.getElementById('user-role-message');
+        const mainActionButton = document.getElementById('main-action-button');
+        const navLinks = document.getElementById('nav-links');
+        const dashboardGrid = document.querySelector('.grid');
+
+        // Check authentication status on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            
+            // Initialize tooltips with tippy.js
+            tippy('[data-tippy-content]', {
+                placement: 'bottom',
+                arrow: true,
+                theme: 'light'
+            });
+        });
+
+        // Toggle user dropdown
+        userMenuButton.addEventListener('click', () => {
+            userDropdown.classList.toggle('hidden');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!userMenuButton.contains(event.target) && !userDropdown.contains(event.target)) {
+                userDropdown.classList.add('hidden');
+            }
+        });
+
+        // Logout functionality
+        logoutButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Clear localStorage
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            
+            // Redirect to login page
+            window.location.href = '/login';
+        });
+
+        // Check if user is authenticated
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || 'null');
+            
+            if (!token || !user) {
+                // User is not authenticated
+                authCheck.classList.add('hidden');
+                dashboardContent.classList.add('hidden');
+                unauthenticatedContent.classList.remove('hidden');
+                return;
+            }
+            
+            // User is authenticated
+            authCheck.classList.add('hidden');
+            unauthenticatedContent.classList.add('hidden');
+            dashboardContent.classList.remove('hidden');
+            
+            // Set user info
+            userNameElement.textContent = user.name;
+            
+            // Set up dashboard based on user role
+            setupDashboard(user);
+        }
+
+        // Set up dashboard based on user role
+        function setupDashboard(user) {
+            // Common welcome message
+            welcomeMessage.textContent = `Welcome, ${user.name}!`;
+            
+            // Role-specific setup
+            if (user.role === 'organizer') {
+                setupOrganizerDashboard(user);
+            } else if (user.role === 'sponsor') {
+                setupSponsorDashboard(user);
+            }
+        }
+
+        // Set up dashboard for event organizers
+        function setupOrganizerDashboard(user) {
+            userRoleMessage.textContent = "Find the perfect sponsors for your next event.";
+            mainActionButton.textContent = "Find Sponsors";
+            mainActionButton.setAttribute('data-tippy-content', 'Browse our directory of sponsors for your event');
+            
+            // Nav links for organizers
+            navLinks.innerHTML = `
+                <a href="#" class="text-gray-900 font-medium px-3 py-2 rounded-md" data-tippy-content="View your dashboard">Dashboard</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md" data-tippy-content="Browse potential sponsors for your events">Find Sponsors</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md" data-tippy-content="Manage your current and upcoming events">My Events</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md" data-tippy-content="View and respond to messages from sponsors">Messages</a>
+            `;
+            
+            // Dashboard content for organizers
+            dashboardGrid.innerHTML = `
+                <div class="card">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-medium">Find Sponsors</h3>
+                        <div class="text-primary">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Browse through our directory of sponsors to find the perfect match for your event.</p>
+                    <button class="text-primary font-medium flex items-center" data-tippy-content="Search and filter sponsors based on your event needs">
+                        Browse Sponsors
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                
+                <div class="card">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-medium">Create Event</h3>
+                        <div class="text-primary">
+                            <i class="fas fa-calendar-plus"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Add details about your upcoming event to attract potential sponsors.</p>
+                    <button class="text-primary font-medium flex items-center" data-tippy-content="Create a new event with details like date, venue, audience, and sponsorship needs">
+                        Add New Event
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                
+                <div class="card">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-medium">Sponsorship Proposals</h3>
+                        <div class="text-primary">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Create and manage sponsorship proposals for your events.</p>
+                    <button class="text-primary font-medium flex items-center" data-tippy-content="Create custom sponsorship proposals with different tiers and benefits">
+                        Manage Proposals
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            `;
+            
+            // Re-initialize tooltips for dynamically added content
+            tippy('[data-tippy-content]', {
+                placement: 'bottom',
+                arrow: true,
+                theme: 'light'
+            });
+        }
+
+        // Set up dashboard for sponsors
+        function setupSponsorDashboard(user) {
+            userRoleMessage.textContent = "Discover events that align with your sponsorship goals.";
+            mainActionButton.textContent = "Browse Events";
+            mainActionButton.setAttribute('data-tippy-content', 'Find events that match your sponsorship criteria');
+            
+            // Nav links for sponsors
+            navLinks.innerHTML = `
+                <a href="#" class="text-gray-900 font-medium px-3 py-2 rounded-md" data-tippy-content="View your dashboard">Dashboard</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md" data-tippy-content="Find events looking for sponsors">Browse Events</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md" data-tippy-content="Review your current and upcoming sponsorships">My Sponsorships</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md" data-tippy-content="View and respond to messages from event organizers">Messages</a>
+            `;
+            
+            // Dashboard content for sponsors
+            dashboardGrid.innerHTML = `
+                <div class="card">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-medium">Browse Events</h3>
+                        <div class="text-primary">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Discover events looking for sponsors that align with your brand and goals.</p>
+                    <button class="text-primary font-medium flex items-center" data-tippy-content="Search and filter events by industry, audience size, location, and date">
+                        Find Events
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                
+                <div class="card">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-medium">Sponsorship Profile</h3>
+                        <div class="text-primary">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Update your sponsorship profile to showcase your offerings to event organizers.</p>
+                    <button class="text-primary font-medium flex items-center" data-tippy-content="Customize your sponsorship profile with brand details, target audience, and sponsorship package options">
+                        Edit Profile
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                
+                <div class="card">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-medium">Proposals Received</h3>
+                        <div class="text-primary">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Review and respond to sponsorship proposals from event organizers.</p>
+                    <button class="text-primary font-medium flex items-center" data-tippy-content="View, accept, or decline sponsorship proposals with detailed terms and conditions">
+                        View Proposals
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            `;
+            
+            // Re-initialize tooltips for dynamically added content
+            tippy('[data-tippy-content]', {
+                placement: 'bottom',
+                arrow: true,
+                theme: 'light'
+            });
+        }
+    </script>
+</body>
+</html> 

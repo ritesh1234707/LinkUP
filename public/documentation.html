@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkUP - Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#14A800',
+                        secondary: '#6B7280',
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .btn-primary {
+                @apply bg-primary text-white font-semibold px-6 py-3 rounded-full hover:bg-green-700 transition duration-300 ease-in-out shadow-md;
+            }
+            .btn-secondary {
+                @apply bg-white text-dark font-semibold px-6 py-3 rounded-full border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition duration-300 ease-in-out;
+            }
+            .doc-section {
+                @apply mb-12;
+            }
+            .doc-heading {
+                @apply text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-200;
+            }
+            .sub-heading {
+                @apply text-xl font-semibold text-gray-800 mt-6 mb-3;
+            }
+            .doc-card {
+                @apply bg-white rounded-xl shadow-md p-6 transition duration-300 hover:shadow-lg mb-6;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 min-h-screen bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex-shrink-0 flex items-center">
+                        <span class="text-primary font-bold text-2xl">LinkUP</span>
+                    </a>
+                    <div class="hidden md:ml-6 md:flex md:space-x-4">
+                        <a href="/dashboard" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md">Back to Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Documentation Content -->
+    <main class="max-w-5xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-xl shadow-md p-8 mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">LinkUP Documentation</h1>
+            <p class="text-gray-600 text-lg">
+                Welcome to the LinkUP platform documentation. This guide will help you understand how to use the platform effectively.
+            </p>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="doc-card mb-10">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Table of Contents</h2>
+            <ul class="space-y-2">
+                <li>
+                    <a href="#getting-started" class="text-primary hover:underline flex items-center">
+                        <i class="fas fa-arrow-right mr-2"></i> Getting Started
+                    </a>
+                </li>
+                <li>
+                    <a href="#for-organizers" class="text-primary hover:underline flex items-center">
+                        <i class="fas fa-arrow-right mr-2"></i> For Event Organizers
+                    </a>
+                </li>
+                <li>
+                    <a href="#for-sponsors" class="text-primary hover:underline flex items-center">
+                        <i class="fas fa-arrow-right mr-2"></i> For Sponsors
+                    </a>
+                </li>
+                <li>
+                    <a href="#account-management" class="text-primary hover:underline flex items-center">
+                        <i class="fas fa-arrow-right mr-2"></i> Account Management
+                    </a>
+                </li>
+                <li>
+                    <a href="#faq" class="text-primary hover:underline flex items-center">
+                        <i class="fas fa-arrow-right mr-2"></i> Frequently Asked Questions
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Getting Started Section -->
+        <div id="getting-started" class="doc-section">
+            <h2 class="doc-heading">Getting Started</h2>
+            
+            <div class="doc-card">
+                <h3 class="sub-heading">What is LinkUP?</h3>
+                <p class="mb-4">
+                    LinkUP is a platform that connects event organizers with potential sponsors. Our goal is to simplify the sponsorship process and create meaningful partnerships between events and brands.
+                </p>
+                
+                <h3 class="sub-heading">Account Creation</h3>
+                <p class="mb-4">
+                    To use LinkUP, you need to create an account as either an event organizer or a sponsor:
+                </p>
+                <ol class="list-decimal ml-6 space-y-2 mb-4">
+                    <li>Click on "Sign Up" from the homepage or login page</li>
+                    <li>Fill in your details including name, email, and password</li>
+                    <li>Select your role: "Event Organizer" or "Sponsor"</li>
+                    <li>Click "Create Account" to complete registration</li>
+                </ol>
+                
+                <h3 class="sub-heading">Navigating the Dashboard</h3>
+                <p>
+                    After logging in, you'll be directed to your personalized dashboard. The dashboard provides quick access to all platform features, with a different interface based on your role (organizer or sponsor).
+                </p>
+            </div>
+        </div>
+
+        <!-- For Event Organizers Section -->
+        <div id="for-organizers" class="doc-section">
+            <h2 class="doc-heading">For Event Organizers</h2>
+            
+            <div class="doc-card">
+                <h3 class="sub-heading">Creating an Event</h3>
+                <p class="mb-4">
+                    To create a new event:
+                </p>
+                <ol class="list-decimal ml-6 space-y-2 mb-4">
+                    <li>Click on "Add New Event" from your dashboard</li>
+                    <li>Fill in event details including name, date, location, and expected audience</li>
+                    <li>Upload event images and add a compelling description</li>
+                    <li>Specify your sponsorship needs and available opportunities</li>
+                    <li>Click "Create Event" to publish</li>
+                </ol>
+                
+                <h3 class="sub-heading">Finding Sponsors</h3>
+                <p class="mb-4">
+                    To browse potential sponsors:
+                </p>
+                <ol class="list-decimal ml-6 space-y-2 mb-4">
+                    <li>Click on "Find Sponsors" from your dashboard</li>
+                    <li>Use filters to narrow down sponsors by industry, budget, or location</li>
+                    <li>Click on a sponsor to view their full profile</li>
+                    <li>Use the "Contact" button to initiate a conversation</li>
+                </ol>
+                
+                <h3 class="sub-heading">Creating Sponsorship Proposals</h3>
+                <p class="mb-4">
+                    To create a sponsorship proposal:
+                </p>
+                <ol class="list-decimal ml-6 space-y-2">
+                    <li>Navigate to "Manage Proposals" from your dashboard</li>
+                    <li>Click "New Proposal" and select the relevant event</li>
+                    <li>Choose the sponsor you want to send the proposal to</li>
+                    <li>Define sponsorship tiers and benefits</li>
+                    <li>Review and send your proposal</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- For Sponsors Section -->
+        <div id="for-sponsors" class="doc-section">
+            <h2 class="doc-heading">For Sponsors</h2>
+            
+            <div class="doc-card">
+                <h3 class="sub-heading">Setting Up Your Sponsorship Profile</h3>
+                <p class="mb-4">
+                    To set up your sponsorship profile:
+                </p>
+                <ol class="list-decimal ml-6 space-y-2 mb-4">
+                    <li>Click on "Edit Profile" from your dashboard</li>
+                    <li>Add your company details, logo, and description</li>
+                    <li>Specify your target audience and preferred event types</li>
+                    <li>Define your budget range and sponsorship preferences</li>
+                    <li>Save your profile to make it visible to event organizers</li>
+                </ol>
+                
+                <h3 class="sub-heading">Browsing Events</h3>
+                <p class="mb-4">
+                    To find events to sponsor:
+                </p>
+                <ol class="list-decimal ml-6 space-y-2 mb-4">
+                    <li>Click on "Find Events" from your dashboard</li>
+                    <li>Use filters to narrow down events by type, location, or date</li>
+                    <li>Click on an event to view complete details</li>
+                    <li>Express interest using the "Contact Organizer" button</li>
+                </ol>
+                
+                <h3 class="sub-heading">Managing Proposals</h3>
+                <p class="mb-4">
+                    To manage proposals from event organizers:
+                </p>
+                <ol class="list-decimal ml-6 space-y-2">
+                    <li>Navigate to "View Proposals" from your dashboard</li>
+                    <li>Review incoming sponsorship proposals</li>
+                    <li>Click on a proposal to view all details and benefits</li>
+                    <li>Accept, decline, or negotiate terms with the organizer</li>
+                    <li>Track all your sponsorship commitments in one place</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Account Management Section -->
+        <div id="account-management" class="doc-section">
+            <h2 class="doc-heading">Account Management</h2>
+            
+            <div class="doc-card">
+                <h3 class="sub-heading">Updating Your Profile</h3>
+                <p class="mb-4">
+                    You can update your profile information at any time by clicking on your name in the top-right corner and selecting "Your Profile".
+                </p>
+                
+                <h3 class="sub-heading">Changing Your Password</h3>
+                <p class="mb-4">
+                    To change your password:
+                </p>
+                <ol class="list-decimal ml-6 space-y-2 mb-4">
+                    <li>Click on your name in the top-right corner</li>
+                    <li>Select "Settings"</li>
+                    <li>Click on "Change Password"</li>
+                    <li>Enter your current password and your new password</li>
+                    <li>Click "Update Password" to save changes</li>
+                </ol>
+                
+                <h3 class="sub-heading">Forgot Password</h3>
+                <p class="mb-4">
+                    If you forget your password:
+                </p>
+                <ol class="list-decimal ml-6 space-y-2">
+                    <li>Click on "Forgot Password" on the login page</li>
+                    <li>Enter your email address</li>
+                    <li>Check your email for a password reset link</li>
+                    <li>Click the link and create a new password</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div id="faq" class="doc-section">
+            <h2 class="doc-heading">Frequently Asked Questions</h2>
+            
+            <div class="doc-card">
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="font-semibold text-gray-900">How much does it cost to use LinkUP?</h3>
+                        <p class="mt-2 text-gray-600">
+                            LinkUP offers a freemium model. Basic features are available for free, while premium features require a subscription. Check our pricing page for current rates.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-gray-900">Can I change my role from organizer to sponsor or vice versa?</h3>
+                        <p class="mt-2 text-gray-600">
+                            Currently, you cannot change roles within the same account. You would need to create a new account with the desired role.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-gray-900">How do payments work between organizers and sponsors?</h3>
+                        <p class="mt-2 text-gray-600">
+                            LinkUP does not handle payments directly. We facilitate the connection between organizers and sponsors, but payment arrangements are made directly between the parties.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-gray-900">Is my personal information secure?</h3>
+                        <p class="mt-2 text-gray-600">
+                            Yes, we take data security seriously. All sensitive information is encrypted and we never share your personal data with third parties without consent.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-gray-900">How do I delete my account?</h3>
+                        <p class="mt-2 text-gray-600">
+                            To delete your account, go to Settings, scroll to the bottom, and click "Delete Account". Note that this action is irreversible.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Support -->
+        <div class="bg-primary bg-opacity-10 rounded-xl p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Need More Help?</h2>
+            <p class="text-gray-700 mb-6">
+                Our support team is always ready to assist you with any questions or issues you might encounter.
+            </p>
+            <a href="mailto:support@linkup.com" class="btn-primary inline-flex items-center">
+                <i class="fas fa-envelope mr-2"></i> Contact Support
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-gray-600">© 2024 LinkUP. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

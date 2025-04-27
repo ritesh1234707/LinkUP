@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkUP - Connect Event Organizers with Sponsors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#14A800',
+                        secondary: '#6B7280',
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .btn-primary {
+                @apply bg-primary text-white font-semibold px-6 py-3 rounded-full hover:bg-green-700 transition duration-300 ease-in-out shadow-md;
+            }
+            .btn-secondary {
+                 @apply bg-white text-dark font-semibold px-6 py-3 rounded-full border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition duration-300 ease-in-out;
+            }
+            .section {
+                @apply py-16 px-4 md:px-8 lg:px-16;
+            }
+            .dropdown-item {
+                @apply px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center cursor-pointer;
+            }
+            .nav-link {
+                @apply text-gray-600 hover:text-gray-900 px-3 py-2 flex items-center text-sm;
+            }
+            .nav-link-active {
+                @apply text-gray-900 px-3 py-2 flex items-center text-sm font-medium;
+            }
+            .ai-chat-container {
+                @apply fixed bottom-20 right-5 w-full max-w-sm bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-50 transition-all duration-300 ease-in-out;
+            }
+            .ai-chat-header {
+                @apply bg-primary text-white p-3 flex justify-between items-center;
+            }
+            .ai-chat-messages {
+                @apply p-4 h-80 overflow-y-auto;
+            }
+            .ai-message {
+                @apply bg-gray-100 rounded-lg p-3 mb-3 max-w-xs;
+            }
+            .user-message {
+                @apply bg-primary bg-opacity-10 rounded-lg p-3 mb-3 ml-auto max-w-xs text-right;
+            }
+            .ai-chat-input {
+                @apply border-t border-gray-200 p-3 flex items-center;
+            }
+            .ai-tab {
+                @apply px-4 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent hover:text-primary hover:border-primary cursor-pointer transition duration-200;
+            }
+            .ai-tab-active {
+                @apply text-primary border-primary;
+            }
+            .ai-form-group {
+                @apply mb-3;
+            }
+            .ai-form-label {
+                @apply block text-sm font-medium text-gray-700 mb-1;
+            }
+            .ai-form-input {
+                @apply w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-sm;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 min-h-screen">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-primary font-bold text-2xl">LinkUP</span>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-4">
+                        <!-- Main navigation items -->
+                        <div class="relative group">
+                            <button class="nav-link group font-medium">
+                                Find Sponsors
+                                <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-100 ease-in-out z-50">
+                                <div class="py-1" role="menu">
+                                    <a href="#" class="dropdown-item">By Industry</a>
+                                    <a href="#" class="dropdown-item">By Location</a>
+                                    <a href="#" class="dropdown-item">By Sponsorship Type</a>
+                                    <a href="#" class="dropdown-item">View All Sponsors</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="relative group">
+                            <button class="nav-link group font-medium">
+                                Why LinkUP
+                                <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-100 ease-in-out z-50">
+                                <div class="py-1" role="menu">
+                                    <a href="#how-it-works" class="dropdown-item">How It Works</a>
+                                    <a href="#" class="dropdown-item">Success Stories</a>
+                                    <a href="#" class="dropdown-item">About Us</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="nav-link font-medium">For Sponsors</a>
+                        <a href="#" class="nav-link font-medium">Enterprise</a>
+                        <a href="#" class="nav-link font-medium">Pricing</a>
+                    </div>
+                </div>
+                
+                <!-- Right side of navbar: search and auth buttons -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input type="text" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm" placeholder="Search...">
+                    </div>
+                    <a href="#" class="nav-link">Log in</a>
+                    <a href="#" class="btn-primary text-sm">Sign Up</a>
+                </div>
+                
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none" id="mobile-menu-button">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="#" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50">Find Sponsors</a>
+                <a href="#" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50">For Sponsors</a>
+                <a href="#how-it-works" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50">Why LinkUP</a>
+                <a href="#" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50">Enterprise</a>
+                <a href="#" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50">Pricing</a>
+            </div>
+            <div class="pt-4 pb-3 border-t border-gray-200">
+                <div class="flex items-center px-4">
+                    <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Login</a>
+                    <a href="#" class="ml-4 block w-full px-4 py-2 text-center text-sm font-medium text-white bg-primary rounded-full shadow-sm hover:bg-green-700">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Secondary Navigation - Categories -->
+    <div class="bg-white border-b border-gray-200">
+        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-start space-x-8 h-12 overflow-x-auto hide-scrollbar">
+                <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">Development & IT</a>
+                <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">AI Services</a>
+                <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">Design & Creative</a>
+                <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">Sales & Marketing</a>
+                <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">Admin & Customer Support</a>
+                <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">More</a>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+
+    <!-- Hero Section with dark overlay similar to Upwork -->
+    <section class="relative bg-dark overflow-hidden">
+        <!-- Dark overlay with image background -->
+        <div class="absolute inset-0 z-0">
+            <img class="w-full h-full object-cover opacity-30" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Event with attendees">
+        </div>
+        
+        <div class="max-w-7xl mx-auto relative z-10 px-4 py-24 sm:px-6 lg:px-8">
+            <div class="text-center lg:text-left max-w-3xl">
+                <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
+                    <span class="block">Connecting events in</span>
+                    <span class="block text-primary">need to sponsors</span>
+                    <span class="block text-white">who deliver</span>
+                </h1>
+                <p class="mt-3 text-base text-gray-300 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                    Discover sponsors open to funding, swag, mentorship, and more.
+                </p>
+                
+                <!-- Two tabs like Upwork -->
+                <div class="mt-10 flex justify-center lg:justify-start">
+                    <div class="inline-flex rounded-full overflow-hidden p-1 bg-gray-800 bg-opacity-50">
+                        <button id="tab-find" class="px-6 py-3 rounded-full bg-primary text-white font-medium text-sm focus:outline-none">Find Sponsors</button>
+                        <button id="tab-browse" class="px-6 py-3 rounded-full text-white font-medium text-sm focus:outline-none">List Your Sponsorship</button>
+                    </div>
+                </div>
+                
+                <!-- Search bar similar to Upwork -->
+                <div class="mt-6 mx-auto lg:mx-0 max-w-2xl">
+                    <div class="relative">
+                        <input type="text" class="w-full py-4 px-6 rounded-full border-0 shadow-xl text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Search by industry, event type, or keywords">
+                        <button class="absolute right-2 top-2 bottom-2 px-6 bg-primary text-white rounded-full hover:bg-green-700 transition duration-300 ease-in-out">
+                            <i class="fas fa-search mr-2"></i>
+                            Search
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Popular brands using the platform -->
+                <div class="mt-12 text-center lg:text-left">
+                    <p class="text-sm font-medium text-gray-300 mb-4">Trusted by leading companies</p>
+                    <div class="flex flex-wrap justify-center lg:justify-start space-x-8 opacity-80">
+                        <div class="h-8 flex items-center text-white">
+                            <i class="fab fa-microsoft text-xl mr-2"></i> Microsoft
+                        </div>
+                        <div class="h-8 flex items-center text-white">
+                            <i class="fab fa-airbnb text-xl mr-2"></i> Airbnb
+                        </div>
+                        <div class="h-8 flex items-center text-white">
+                            <i class="fab fa-google text-xl mr-2"></i> Google
+                        </div>
+                        <div class="h-8 flex items-center text-white">
+                            <i class="fas fa-building text-xl mr-2"></i> GlassDoor
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section bg-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-primary font-semibold tracking-wide uppercase">Process</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    How It Works
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Connect with the right sponsors in three simple steps
+                </p>
+            </div>
+
+            <!-- Interactive process steps with hover effects -->
+            <div class="mt-12">
+                <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-8">
+                    <div class="relative bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                        <dt>
+                            <div class="absolute flex items-center justify-center h-16 w-16 rounded-full bg-primary text-white -top-8">
+                                <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>
+                            <div class="flex justify-between items-start">
+                                <p class="mt-4 text-xl leading-6 font-bold text-gray-900">1. Browse sponsor listings</p>
+                                <span class="inline-flex items-center justify-center h-8 w-8 rounded-full bg-green-100 text-green-800">
+                                    <i class="fas fa-arrow-right"></i>
+                                </span>
+                            </div>
+                        </dt>
+                        <dd class="mt-4 text-base text-gray-500">
+                            Search and filter through a variety of sponsors looking to support events like yours.
+                        </dd>
+                        <div class="mt-4">
+                            <a href="#" class="text-primary font-medium flex items-center">
+                                Browse Sponsor Directory <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="relative bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                        <dt>
+                            <div class="absolute flex items-center justify-center h-16 w-16 rounded-full bg-primary text-white -top-8">
+                                <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                </svg>
+                            </div>
+                            <div class="flex justify-between items-start">
+                                <p class="mt-4 text-xl leading-6 font-bold text-gray-900">2. Create and send proposals</p>
+                                <span class="inline-flex items-center justify-center h-8 w-8 rounded-full bg-green-100 text-green-800">
+                                    <i class="fas fa-arrow-right"></i>
+                                </span>
+                            </div>
+                        </dt>
+                        <dd class="mt-4 text-base text-gray-500">
+                            Craft and send customized proposals directly to sponsors that match your event needs.
+                        </dd>
+                        <div class="mt-4">
+                            <a href="#" class="text-primary font-medium flex items-center">
+                                View Proposal Templates <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="relative bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                        <dt>
+                            <div class="absolute flex items-center justify-center h-16 w-16 rounded-full bg-primary text-white -top-8">
+                                <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div class="flex justify-between items-start">
+                                <p class="mt-4 text-xl leading-6 font-bold text-gray-900">3. Sponsors review and respond</p>
+                                <span class="inline-flex items-center justify-center h-8 w-8 rounded-full bg-green-100 text-green-800">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                        </dt>
+                        <dd class="mt-4 text-base text-gray-500">
+                            Get quick responses from interested sponsors and start building meaningful partnerships.
+                        </dd>
+                        <div class="mt-4">
+                            <a href="#" class="text-primary font-medium flex items-center">
+                                Success Stories <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </dl>
+            </div>
+            
+            <!-- Interactive stats section -->
+            <div class="mt-24 bg-white rounded-xl shadow-md p-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <h3 class="text-5xl font-bold text-primary mb-2 counter" data-target="5000">0</h3>
+                        <p class="text-gray-600">Successful Sponsorships</p>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-5xl font-bold text-primary mb-2 counter" data-target="2500">0</h3>
+                        <p class="text-gray-600">Global Sponsors</p>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-5xl font-bold text-primary mb-2 counter" data-target="98">0</h3>
+                        <p class="text-gray-600">Satisfaction Rate %</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials slider section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">What Our Users Say</h2>
+                <p class="mt-4 text-xl text-gray-600">Don't just take our word for it</p>
+            </div>
+            
+            <div class="testimonial-slider relative">
+                <div class="overflow-hidden">
+                    <div class="flex testimonial-slides transition-transform duration-500">
+                        <!-- Testimonial 1 -->
+                        <div class="min-w-full md:px-16">
+                            <div class="bg-white rounded-xl shadow-md p-8">
+                                <div class="flex items-center mb-6">
+                                    <div class="h-14 w-14 rounded-full overflow-hidden mr-4">
+                                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Testimonial" class="h-full w-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-bold">Sarah Thompson</h4>
+                                        <p class="text-gray-600">Tech Conference Organizer</p>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <div class="flex text-yellow-400">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="italic text-gray-600">"LinkUP helped us secure three major tech companies as sponsors for our annual conference. The platform's intuitive design made it incredibly easy to find the right match for our event."</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 2 -->
+                        <div class="min-w-full md:px-16">
+                            <div class="bg-white rounded-xl shadow-md p-8">
+                                <div class="flex items-center mb-6">
+                                    <div class="h-14 w-14 rounded-full overflow-hidden mr-4">
+                                        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Testimonial" class="h-full w-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-bold">Michael Rodriguez</h4>
+                                        <p class="text-gray-600">Marketing Director, TechCorp</p>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <div class="flex text-yellow-400">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="italic text-gray-600">"As a sponsor, we've found LinkUP to be the most efficient way to connect with relevant events in our industry. We've sponsored 12 events this year alone through the platform."</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 3 -->
+                        <div class="min-w-full md:px-16">
+                            <div class="bg-white rounded-xl shadow-md p-8">
+                                <div class="flex items-center mb-6">
+                                    <div class="h-14 w-14 rounded-full overflow-hidden mr-4">
+                                        <img src="https://randomuser.me/api/portraits/women/67.jpg" alt="Testimonial" class="h-full w-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-bold">Emily Chen</h4>
+                                        <p class="text-gray-600">Nonprofit Event Coordinator</p>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <div class="flex text-yellow-400">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="italic text-gray-600">"LinkUP changed everything for our nonprofit. We were able to secure funding that covered 80% of our event costs, allowing us to focus on our mission instead of fundraising."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slider controls -->
+                <button class="absolute left-0 top-1/2 -translate-y-1/2 bg-white rounded-full shadow-md p-3 focus:outline-none slider-prev">
+                    <i class="fas fa-chevron-left text-primary"></i>
+                </button>
+                <button class="absolute right-0 top-1/2 -translate-y-1/2 bg-white rounded-full shadow-md p-3 focus:outline-none slider-next">
+                    <i class="fas fa-chevron-right text-primary"></i>
+                </button>
+                
+                <!-- Slider dots -->
+                <div class="flex justify-center mt-8 slider-dots">
+                    <button class="h-3 w-3 rounded-full bg-primary mx-1 dot active" data-index="0"></button>
+                    <button class="h-3 w-3 rounded-full bg-gray-300 mx-1 dot" data-index="1"></button>
+                    <button class="h-3 w-3 rounded-full bg-gray-300 mx-1 dot" data-index="2"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsor Banner with interactive elements -->
+    <section class="py-16 bg-primary bg-gradient-to-r from-primary to-green-600 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:flex lg:items-center lg:justify-between">
+                <div>
+                    <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+                        <span class="block">Are You a Sponsor?</span>
+                        <span class="block text-green-200">List your company in minutes.</span>
+                    </h2>
+                    <p class="mt-4 text-lg text-white opacity-90 max-w-xl">
+                        Join thousands of companies finding the perfect events to sponsor. Create your profile and start receiving proposals today.
+                    </p>
+                    
+                    <!-- Interactive benefits -->
+                    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-check-circle text-green-200 text-xl"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-lg font-medium">Targeted Reach</h3>
+                                <p class="mt-1 text-sm text-white opacity-80">Connect with events that align with your brand values</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-check-circle text-green-200 text-xl"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-lg font-medium">Time Saving</h3>
+                                <p class="mt-1 text-sm text-white opacity-80">Review and respond to proposals all in one place</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-10 lg:mt-0 lg:flex-shrink-0">
+                    <div class="bg-white rounded-lg shadow-xl p-6 lg:ml-8 transform transition duration-500 hover:scale-105">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Create Sponsor Profile</h3>
+                        
+                        <!-- Mini form -->
+                        <form class="space-y-4">
+                            <div>
+                                <label for="company" class="block text-sm font-medium text-gray-700">Company Name</label>
+                                <input type="text" id="company" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" id="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
+                            </div>
+                            <div>
+                                <label for="sponsor-type" class="block text-sm font-medium text-gray-700">Sponsorship Type</label>
+                                <select id="sponsor-type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
+                                    <option>Financial</option>
+                                    <option>In-kind</option>
+                                    <option>Media</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <button type="button" class="w-full btn-primary">Create Profile</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Category section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900">Browse by Category</h2>
+                <p class="mt-4 text-xl text-gray-600">Find sponsors for any type of event</p>
+            </div>
+            
+            <div class="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <!-- Category cards with hover effects -->
+                <div class="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-xl transition duration-300 transform hover:-translate-y-1 cursor-pointer">
+                    <div class="bg-blue-100 text-blue-600 rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-laptop text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold">Tech</h3>
+                    <p class="text-sm text-gray-500 mt-2">120+ sponsors</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-xl transition duration-300 transform hover:-translate-y-1 cursor-pointer">
+                    <div class="bg-green-100 text-green-600 rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-leaf text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold">Sustainability</h3>
+                    <p class="text-sm text-gray-500 mt-2">85+ sponsors</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-xl transition duration-300 transform hover:-translate-y-1 cursor-pointer">
+                    <div class="bg-red-100 text-red-600 rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-heartbeat text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold">Healthcare</h3>
+                    <p class="text-sm text-gray-500 mt-2">92+ sponsors</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-xl transition duration-300 transform hover:-translate-y-1 cursor-pointer">
+                    <div class="bg-yellow-100 text-yellow-600 rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold">Education</h3>
+                    <p class="text-sm text-gray-500 mt-2">105+ sponsors</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-xl transition duration-300 transform hover:-translate-y-1 cursor-pointer">
+                    <div class="bg-purple-100 text-purple-600 rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-music text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold">Arts & Music</h3>
+                    <p class="text-sm text-gray-500 mt-2">78+ sponsors</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-xl transition duration-300 transform hover:-translate-y-1 cursor-pointer">
+                    <div class="bg-indigo-100 text-indigo-600 rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-ellipsis-h text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold">More</h3>
+                    <p class="text-sm text-gray-500 mt-2">200+ sponsors</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer with more interactive elements -->
+    <footer class="bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+                <!-- Company info -->
+                <div>
+                    <div class="text-primary font-bold text-xl mb-4">LinkUP</div>
+                    <p class="text-gray-500 text-sm">Connecting event organizers with the perfect sponsors since 2020.</p>
+                    <div class="mt-4">
+                        <a href="#" class="btn-primary text-sm inline-block">Sign Up Free</a>
+                    </div>
+                </div>
+                
+                <!-- Footer links -->
+                <div>
+                    <h3 class="text-gray-900 font-semibold mb-4">For Organizers</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-primary text-sm">How it Works</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary text-sm">Browse Sponsors</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary text-sm">Success Stories</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary text-sm">Pricing</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-gray-900 font-semibold mb-4">For Sponsors</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-primary text-sm">Create a Profile</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary text-sm">Find Events</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary text-sm">Sponsorship ROI</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-primary text-sm">Membership Options</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-gray-900 font-semibold mb-4">Stay Connected</h3>
+                    <!-- Newsletter signup -->
+                    <form class="mt-2">
+                        <div class="flex">
+                            <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l-md border-gray-300 focus:ring-primary focus:border-primary text-sm">
+                            <button type="button" class="bg-primary text-white px-4 py-2 rounded-r-md hover:bg-green-700">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <!-- Social media -->
+                    <div class="mt-4 flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="fab fa-facebook-f text-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="fab fa-twitter text-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="fab fa-instagram text-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="fab fa-linkedin-in text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center">
+                <nav class="flex flex-wrap justify-center space-x-6" aria-label="Footer">
+                    <a href="#" class="text-sm text-gray-500 hover:text-gray-900">Privacy Policy</a>
+                    <a href="#" class="text-sm text-gray-500 hover:text-gray-900">Terms of Service</a>
+                    <a href="#" class="text-sm text-gray-500 hover:text-gray-900">Contact Us</a>
+                    <a href="#" class="text-sm text-gray-500 hover:text-gray-900">Support</a>
+                </nav>
+                <p class="mt-8 md:mt-0 text-center text-sm text-gray-400">
+                    &copy; 2023 LinkUP. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Assistant Button and Chat Interface -->
+    <div class="fixed bottom-5 right-5 z-50">
+        <!-- Floating AI Button -->
+        <button id="ai-assistant-btn" class="flex items-center justify-center w-14 h-14 rounded-full bg-primary text-white shadow-lg hover:bg-green-700 transition duration-300 focus:outline-none">
+            <i class="fas fa-robot text-xl"></i>
+        </button>
+
+        <!-- AI Chat Interface (hidden by default) -->
+        <div id="ai-chat-container" class="ai-chat-container transform scale-0 origin-bottom-right">
+            <div class="ai-chat-header">
+                <div class="flex items-center">
+                    <i class="fas fa-robot mr-2"></i>
+                    <h3 class="font-medium">LinkUP Assistant</h3>
+                </div>
+                <button id="close-chat" class="text-white hover:text-gray-200">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Simple Tabs Navigation -->
+            <div class="flex border-b border-gray-200 bg-gray-50">
+                <button id="tab-chat" class="ai-tab ai-tab-active">Chat</button>
+                <button id="tab-help" class="ai-tab">Help</button>
+                <button id="tab-payment" class="ai-tab">Billing</button>
+            </div>
+            
+            <!-- Chat View -->
+            <div id="view-chat" class="flex flex-col h-[350px]">
+                <div id="ai-chat-messages" class="ai-chat-messages flex-1">
+                    <div class="ai-message">
+                        Hi there! I'm your LinkUP Assistant. How can I help you today?
+                    </div>
+                    <div class="ai-message">
+                        <div class="mb-2">I can help with:</div>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full text-xs quick-reply">Find sponsors</button>
+                            <button class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full text-xs quick-reply">List my sponsorship</button>
+                            <button class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full text-xs quick-reply">How it works</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ai-chat-input">
+                    <input id="ai-chat-input-field" type="text" placeholder="Type your message..." class="w-full border-0 focus:ring-0 focus:outline-none">
+                    <button id="send-chat" class="ml-2 text-primary hover:text-green-700">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Help View -->
+            <div id="view-help" class="hidden p-4 h-[350px] overflow-y-auto">
+                <div class="text-center mb-4">
+                    <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 text-blue-500 mb-3">
+                        <i class="fas fa-headset text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium">Need Help?</h3>
+                    <p class="text-gray-600 text-sm">We're here to assist you</p>
+                </div>
+                
+                <div class="space-y-4">
+                    <button class="w-full flex items-center justify-between bg-white p-3 rounded-lg border border-gray-200 hover:border-primary hover:shadow-md transition duration-200">
+                        <div class="flex items-center">
+                            <div class="bg-green-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-comment-dots text-green-600"></i>
+                            </div>
+                            <div class="text-left">
+                                <div class="font-medium">Live Chat</div>
+                                <div class="text-xs text-gray-500">Available 9am-5pm</div>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </button>
+                    
+                    <button class="w-full flex items-center justify-between bg-white p-3 rounded-lg border border-gray-200 hover:border-primary hover:shadow-md transition duration-200">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-envelope text-blue-600"></i>
+                            </div>
+                            <div class="text-left">
+                                <div class="font-medium">Email Support</div>
+                                <div class="text-xs text-gray-500">Response within 24hrs</div>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </button>
+                    
+                    <button class="w-full flex items-center justify-between bg-white p-3 rounded-lg border border-gray-200 hover:border-primary hover:shadow-md transition duration-200">
+                        <div class="flex items-center">
+                            <div class="bg-purple-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-book text-purple-600"></i>
+                            </div>
+                            <div class="text-left">
+                                <div class="font-medium">Help Center</div>
+                                <div class="text-xs text-gray-500">Browse FAQs & guides</div>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </button>
+                </div>
+                
+                <div class="mt-6 pt-4 border-t border-gray-200">
+                    <div class="ai-form-group">
+                        <label class="ai-form-label">What can we help you with?</label>
+                        <select class="ai-form-input">
+                            <option>Choose a topic...</option>
+                            <option>Account Access</option>
+                            <option>Sponsor Listings</option>
+                            <option>Technical Issues</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="ai-form-group">
+                        <label class="ai-form-label">Your message</label>
+                        <textarea rows="3" placeholder="Describe your issue..." class="ai-form-input"></textarea>
+                    </div>
+                    <button class="w-full btn-primary text-sm py-2">Send Message</button>
+                </div>
+            </div>
+            
+            <!-- Payment/Billing View -->
+            <div id="view-payment" class="hidden p-4 h-[350px] overflow-y-auto">
+                <div class="text-center mb-4">
+                    <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-purple-100 text-purple-500 mb-3">
+                        <i class="fas fa-credit-card text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium">Billing Support</h3>
+                    <p class="text-gray-600 text-sm">Manage payments and subscriptions</p>
+                </div>
+                
+                <div class="space-y-3">
+                    <div class="bg-yellow-50 border border-yellow-100 rounded-lg p-3 text-sm text-yellow-800">
+                        <div class="font-medium mb-1 flex items-center">
+                            <i class="fas fa-lightbulb mr-2"></i>
+                            Quick Help
+                        </div>
+                        Most billing issues can be solved by updating your payment information or checking your subscription status.
+                    </div>
+                    
+                    <div class="bg-white rounded-lg border border-gray-200 divide-y divide-gray-200">
+                        <button class="w-full flex items-center justify-between p-3 hover:bg-gray-50 transition duration-200">
+                            <span class="font-medium text-sm">Update Payment Method</span>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </button>
+                        <button class="w-full flex items-center justify-between p-3 hover:bg-gray-50 transition duration-200">
+                            <span class="font-medium text-sm">View Billing History</span>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </button>
+                        <button class="w-full flex items-center justify-between p-3 hover:bg-gray-50 transition duration-200">
+                            <span class="font-medium text-sm">Cancel Subscription</span>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <button class="w-full flex items-center justify-center bg-white p-3 rounded-lg border border-gray-200 hover:border-primary hover:shadow-md transition duration-200">
+                        <i class="fas fa-headset mr-2 text-primary"></i>
+                        <span class="font-medium">Contact Billing Support</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Tabs functionality
+        const findTab = document.getElementById('tab-find');
+        const browseTab = document.getElementById('tab-browse');
+        
+        findTab.addEventListener('click', function() {
+            findTab.classList.add('bg-primary', 'text-white');
+            browseTab.classList.remove('bg-primary', 'text-white');
+        });
+        
+        browseTab.addEventListener('click', function() {
+            browseTab.classList.add('bg-primary', 'text-white');
+            findTab.classList.remove('bg-primary', 'text-white');
+        });
+        
+        // Testimonial slider
+        const slider = document.querySelector('.testimonial-slides');
+        const nextBtn = document.querySelector('.slider-next');
+        const prevBtn = document.querySelector('.slider-prev');
+        const dots = document.querySelectorAll('.dot');
+        let slideIndex = 0;
+        
+        function goToSlide(index) {
+            slider.style.transform = `translateX(-${index * 100}%)`;
+            slideIndex = index;
+            updateDots();
+        }
+        
+        function updateDots() {
+            dots.forEach((dot, i) => {
+                if (i === slideIndex) {
+                    dot.classList.add('bg-primary');
+                    dot.classList.remove('bg-gray-300');
+                } else {
+                    dot.classList.remove('bg-primary');
+                    dot.classList.add('bg-gray-300');
+                }
+            });
+        }
+        
+        nextBtn.addEventListener('click', () => {
+            slideIndex = (slideIndex + 1) % 3;
+            goToSlide(slideIndex);
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            slideIndex = (slideIndex - 1 + 3) % 3;
+            goToSlide(slideIndex);
+        });
+        
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                goToSlide(i);
+            });
+        });
+        
+        // Counter animation
+        const counters = document.querySelectorAll('.counter');
+        
+        function runCounter() {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / 100;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(runCounter, 30);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        }
+        
+        // Intersection Observer for counter animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    runCounter();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        if (counters.length > 0) {
+            observer.observe(document.querySelector('.counter').parentNode.parentNode);
+        }
+
+        // AI Assistant Functionality
+        const aiButton = document.getElementById('ai-assistant-btn');
+        const chatContainer = document.getElementById('ai-chat-container');
+        const closeChat = document.getElementById('close-chat');
+        const chatMessages = document.getElementById('ai-chat-messages');
+        const chatInput = document.getElementById('ai-chat-input-field');
+        const sendChat = document.getElementById('send-chat');
+        
+        // Tab navigation
+        const tabChat = document.getElementById('tab-chat');
+        const tabHelp = document.getElementById('tab-help');
+        const tabPayment = document.getElementById('tab-payment');
+        
+        // Views
+        const viewChat = document.getElementById('view-chat');
+        const viewHelp = document.getElementById('view-help');
+        const viewPayment = document.getElementById('view-payment');
+        
+        // Quick reply buttons
+        const quickReplyButtons = document.querySelectorAll('.quick-reply');
+
+        // IMPORTANT: Replace with your actual OpenAI API key
+        // SECURITY NOTE: In a production environment, NEVER expose your API key in client-side JavaScript
+        // Instead, use a backend service to handle API requests securely
+        const OPENAI_API_KEY = 'YOUR_OPENAI_API_KEY_HERE';
+        
+        // Store conversation history
+        let conversationHistory = [
+            { role: "system", content: "You are LinkUP Assistant, a helpful AI that assists users with the LinkUP platform - a service that connects event organizers with sponsors. Your primary roles are: 1) Help event organizers find appropriate sponsors for their events, 2) Guide sponsors through the process of listing their sponsorship offerings, 3) Answer questions about how LinkUP works, pricing, and other platform features. Keep your responses concise, friendly, and focused on helping users navigate the platform efficiently." }
+        ];
+
+        // Toggle chat window
+        aiButton.addEventListener('click', () => {
+            chatContainer.classList.toggle('scale-0');
+            if (!chatContainer.classList.contains('scale-0')) {
+                chatInput.focus();
+            }
+        });
+
+        closeChat.addEventListener('click', () => {
+            chatContainer.classList.add('scale-0');
+        });
+        
+        // Tab functionality
+        function setActiveTab(tab) {
+            // Reset all tabs
+            tabChat.classList.remove('ai-tab-active');
+            tabHelp.classList.remove('ai-tab-active');
+            tabPayment.classList.remove('ai-tab-active');
+            
+            // Hide all views
+            viewChat.classList.add('hidden');
+            viewHelp.classList.add('hidden');
+            viewPayment.classList.add('hidden');
+            
+            // Set active tab and view
+            if (tab === 'chat') {
+                tabChat.classList.add('ai-tab-active');
+                viewChat.classList.remove('hidden');
+            } else if (tab === 'help') {
+                tabHelp.classList.add('ai-tab-active');
+                viewHelp.classList.remove('hidden');
+            } else if (tab === 'payment') {
+                tabPayment.classList.add('ai-tab-active');
+                viewPayment.classList.remove('hidden');
+            }
+        }
+        
+        tabChat.addEventListener('click', () => setActiveTab('chat'));
+        tabHelp.addEventListener('click', () => setActiveTab('help'));
+        tabPayment.addEventListener('click', () => setActiveTab('payment'));
+        
+        // Quick reply buttons
+        quickReplyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const message = button.textContent;
+                handleUserMessage(message);
+            });
+        });
+        
+        // Handle user message (either typed or quick reply)
+        function handleUserMessage(message) {
+            // Add user message to chat UI
+            const userMessageEl = document.createElement('div');
+            userMessageEl.className = 'user-message';
+            userMessageEl.textContent = message;
+            chatMessages.appendChild(userMessageEl);
+            
+            // Clear input if this was a typed message
+            chatInput.value = '';
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Process the message with the AI
+            processWithAI(message);
+        }
+        
+        // Send message function (for typed messages)
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message) {
+                handleUserMessage(message);
+            }
+        }
+        
+        // Process message with AI
+        async function processWithAI(message) {
+            // Add typing indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'ai-message flex items-center space-x-1';
+            typingIndicator.innerHTML = `
+                <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0s;"></span>
+                <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.1s;"></span>
+                <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s;"></span>
+            `;
+            chatMessages.appendChild(typingIndicator);
+            
+            // Add user message to conversation history
+            conversationHistory.push({ role: "user", content: message });
+            
+            try {
+                // Call OpenAI API
+                const response = await callOpenAI(conversationHistory);
+                
+                // Remove typing indicator
+                chatMessages.removeChild(typingIndicator);
+                
+                // Add AI response to chat
+                const aiMessageEl = document.createElement('div');
+                aiMessageEl.className = 'ai-message';
+                aiMessageEl.textContent = response;
+                chatMessages.appendChild(aiMessageEl);
+                
+                // Add suggestion buttons if appropriate
+                if (
+                    message.toLowerCase().includes('help') || 
+                    message.toLowerCase().includes('how') || 
+                    message.toLowerCase().includes('what') ||
+                    conversationHistory.length <= 3
+                ) {
+                    addSuggestionButtons();
+                }
+                
+                // Add AI response to conversation history
+                conversationHistory.push({ role: "assistant", content: response });
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            } catch (error) {
+                // Remove typing indicator
+                chatMessages.removeChild(typingIndicator);
+                
+                // Display error message
+                const errorMessageEl = document.createElement('div');
+                errorMessageEl.className = 'ai-message';
+                errorMessageEl.textContent = "I'm having trouble connecting right now. Please try again later.";
+                chatMessages.appendChild(errorMessageEl);
+                
+                console.error('OpenAI API Error:', error);
+            }
+        }
+        
+        // Add suggestion buttons after AI response
+        function addSuggestionButtons() {
+            const suggestionsEl = document.createElement('div');
+            suggestionsEl.className = 'ai-message';
+            suggestionsEl.innerHTML = `
+                <div class="mb-2">You might also want to know:</div>
+                <div class="flex flex-wrap gap-2">
+                    <button class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full text-xs quick-reply">Pricing plans</button>
+                    <button class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full text-xs quick-reply">Contact support</button>
+                    <button class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full text-xs quick-reply">Success stories</button>
+                </div>
+            `;
+            chatMessages.appendChild(suggestionsEl);
+            
+            // Add event listeners to new buttons
+            suggestionsEl.querySelectorAll('.quick-reply').forEach(button => {
+                button.addEventListener('click', () => {
+                    const message = button.textContent;
+                    handleUserMessage(message);
+                });
+            });
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Call OpenAI API
+        async function callOpenAI(messages) {
+            try {
+                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${OPENAI_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-3.5-turbo',
+                        messages: messages,
+                        max_tokens: 150,
+                        temperature: 0.7
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                return data.choices[0].message.content;
+            } catch (error) {
+                console.error('Error calling OpenAI API:', error);
+                // Fallback to basic responses if API fails
+                return fallbackResponse(messages[messages.length - 1].content);
+            }
+        }
+
+        // Fallback response function if API fails
+        function fallbackResponse(message) {
+            // Simple keyword-based responses
+            const messageLower = message.toLowerCase();
+            
+            if (messageLower.includes('find sponsor') || messageLower.includes('looking for sponsor')) {
+                return "To find sponsors, you can use our search feature at the top of the page or browse sponsors by industry. Would you like me to guide you through the process?";
+            } 
+            else if (messageLower.includes('list') && messageLower.includes('sponsor')) {
+                return "To list your sponsorship, click on 'For Sponsors' in the navigation menu or the 'List Your Sponsorship' button on the homepage. You'll need to create a profile with details about your company and what you offer.";
+            }
+            else if (messageLower.includes('how') && messageLower.includes('work')) {
+                return "LinkUP connects event organizers with sponsors. Sponsors list their offerings, and organizers can search and contact potential sponsors that match their needs. Check out our 'How It Works' section for more details!";
+            }
+            else if (messageLower.includes('pricing') || messageLower.includes('cost')) {
+                return "We offer various pricing plans for both sponsors and event organizers. Basic listing is free, while premium features start at $29/month. You can find full details on our Pricing page.";
+            }
+            else {
+                return "Thanks for your message! I can help with finding sponsors, listing your sponsorship, explaining how LinkUP works, or answering questions about our platform. Could you provide more details about what you need?";
+            }
+        }
+
+        // Send on Enter key
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Send on button click
+        sendChat.addEventListener('click', sendMessage);
+    </script>
+</body>
+</html> 
