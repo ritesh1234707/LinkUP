@@ -186,5 +186,5 @@ Contributions, issues and feature requests are welcome!
 ---
 
 <div align="center">
-  Made with by <a href="https://github.com/yourusername">Your Name</a>
+  Made with by <a href="https://github.com/ritesh1234707">Ritesh Bhatt</a>
 </div> 
